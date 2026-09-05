@@ -1,7 +1,8 @@
 # Claude Code Workflow
 
-Claude Code 세션 로그를 근거로, 실제로 사용한 워크플로우만 정리했습니다.
-설정만 해두고 쓰지 않은 기능은 제외했습니다.
+Claude Code를 매 세션 실제로 불러오는 설정 파일(`config/`, `Skills/`, `Commands/`)과,
+세션 로그로 검증한 실사용 사례를 함께 정리했습니다. 설정만 해두고 쓰지
+않은 기능(예: Business Panel 모드)은 뺐습니다.
 
 ## 실증된 사용 사례
 
@@ -57,6 +58,66 @@ Claude Code 세션 로그를 근거로, 실제로 사용한 워크플로우만 �
 `browser_navigate` → `browser_snapshot`/`browser_console_messages` → `browser_click` →
 `browser_evaluate` 흐름을 반복 실행 (총 25회 호출). 코드 수정 후 실제 브라우저에서
 동작을 재현·확인하며 반복 검증하는 용도로 사용.
+
+## 구성
+
+`config/CLAUDE.md`는 Claude Code가 세션 시작 시 읽는 진입점 파일로, 이 레포의
+나머지 설정 파일을 전부 import합니다. [SuperClaude Framework](https://github.com/SuperClaude-Org/SuperClaude_Framework)
+위에 구성했으며, 실제로 매 세션 로드되는 설정이지 데모용이 아닙니다.
+
+### Behavioral Modes
+
+| 파일 | 모드 | 용도 |
+|---|---|---|
+| [MODE_Brainstorming.md](config/MODE_Brainstorming.md) | Brainstorming | 모호한 요청에 대한 소크라테스식 질문 |
+| [MODE_Task_Management.md](config/MODE_Task_Management.md) | Task Management | 다단계 작업의 계층적 계획·메모리 관리 |
+| [MODE_Orchestration.md](config/MODE_Orchestration.md) | Orchestration | 작업별 최적 도구/MCP 서버 선택 |
+| [MODE_Introspection.md](config/MODE_Introspection.md) | Introspection | 에러·복잡한 판단 이후 메타인지적 자기 점검 |
+| [MODE_DeepResearch.md](config/MODE_DeepResearch.md) | Deep Research | 근거 기반, 출처 명시 리서치 |
+| [MODE_Token_Efficiency.md](config/MODE_Token_Efficiency.md) | Token Efficiency | 컨텍스트 압박 시 기호 기반 압축 커뮤니케이션 |
+
+Business Panel 모드는 제거했습니다 — 세션 로그상 실행 이력이 없어 실사용
+검증이 안 된 상태였습니다.
+
+### MCP 서버 라우팅 규칙
+
+`MCP_*.md` 파일들은 각 서버를 언제 선택해야 하는지 문서화한 규칙입니다
+(예: 공식 문서 조회는 Context7, 다단계 추론은 Sequential, 브라우저 테스트는
+Playwright). **다만 이 중 실제 호출 이력이 확인된 것은 Playwright뿐입니다**
+(위 "실증된 사용 사례" 4번). 나머지는 라우팅 규칙만 구성해뒀고 실사용 검증은
+아직입니다.
+
+### Core Rules & Principles
+
+- [`config/RULES.md`](config/RULES.md) — 세션 워크플로우, Git 안전 수칙, 스코프 규율
+- [`config/PRINCIPLES.md`](config/PRINCIPLES.md) — SOLID, DRY/KISS/YAGNI, 근거 기반 의사결정
+- [`config/FLAGS.md`](config/FLAGS.md) — 모드/깊이/MCP 선택을 수동으로 override하는 플래그
+- [`config/RESEARCH_CONFIG.md`](config/RESEARCH_CONFIG.md) — 딥리서치 워크플로우 기본값
+
+### Skills
+
+요청이 스킬 설명과 매칭되면 자동으로 트리거되는 커스텀 스킬:
+
+| Skill | 용도 |
+|---|---|
+| [Skills/tube-info](Skills/tube-info/SKILL.md) | TubeAlfred MCP로 유튜브 채널/영상 정보·챕터·전체 자막 요약 |
+| [Skills/app-mockup](Skills/app-mockup/SKILL.md) | 앱 스크린샷을 아이폰/갤럭시 기기 목업 프레임에 합성 |
+
+### Commands
+
+스킬에 `/이름` 형태의 진입점을 붙인 얇은 래퍼 (로직 중복 없음):
+
+| Command | 호출 대상 |
+|---|---|
+| [Commands/tube-info.md](Commands/tube-info.md) | `/tube-info <url>` → Skills/tube-info |
+| [Commands/app-mockup.md](Commands/app-mockup.md) | `/app-mockup` → Skills/app-mockup |
+
+### 사용법
+
+`config/` 안의 파일들을 `~/.claude/`(전역) 또는 `.claude/`(프로젝트별)에
+넣고 자신의 `CLAUDE.md`에서 `@파일명.md`로 import하면 됩니다. Skill은
+`~/.claude/skills/<name>/SKILL.md`, Command는 `~/.claude/commands/<name>.md`에
+넣습니다.
 
 ## 왜 이렇게 구성했는가
 반복적인 컨텍스트 손실, 임시방편적 코드 수정, 불필요한 verbose 출력
