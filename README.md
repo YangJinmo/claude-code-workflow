@@ -3,8 +3,7 @@
 Claude Code를 매 세션 실제로 불러오는 설정과, 세션 로그로 검증한 실사용
 사례를 함께 정리했습니다. 프레임워크 원본 파일([SuperClaude Framework](https://github.com/SuperClaude-Org/SuperClaude_Framework))은
 이 레포에 복제해두지 않고 원본 링크로 대체했고, 직접 만든 `Skills/`,
-`Commands/`만 실제 파일로 들어 있습니다. 설정만 해두고 쓰지 않은 기능
-(예: Business Panel 모드)은 뺐습니다.
+`Commands/`만 실제 파일로 들어 있습니다.
 
 ## 실증된 사용 사례
 
@@ -79,16 +78,7 @@ Claude Code를 매 세션 실제로 불러오는 설정과, 세션 로그로 검
 | [Introspection](https://github.com/SuperClaude-Org/SuperClaude_Framework/blob/master/src/superclaude/modes/MODE_Introspection.md) | 에러·복잡한 판단 이후 메타인지적 자기 점검 |
 | [Deep Research](https://github.com/SuperClaude-Org/SuperClaude_Framework/blob/master/src/superclaude/modes/MODE_DeepResearch.md) | 근거 기반, 출처 명시 리서치 |
 | [Token Efficiency](https://github.com/SuperClaude-Org/SuperClaude_Framework/blob/master/src/superclaude/modes/MODE_Token_Efficiency.md) | 컨텍스트 압박 시 기호 기반 압축 커뮤니케이션 |
-
-**[Business Panel](https://github.com/SuperClaude-Org/SuperClaude_Framework/blob/master/src/superclaude/modes/MODE_Business_Panel.md)**
-(내 `CLAUDE.md` import 목록에서는 제거, 설명만 남김) — Christensen, Porter,
-Drucker, Godin, Kim & Mauborgne, Collins, Taleb, Meadows, Doumont 9명의
-경영 프레임워크로 전략 문서·사업 아이디어를 다각도로 분석하는 멀티 페르소나
-모드였습니다. discussion(협력 분석)/debate(반박 검증)/socratic(질문 유도)
-3가지 방식을 지원했고, 코드 리뷰처럼 "다 만들고 나서" 쓰는 게 아니라
-전략 기획서나 시장 진입 계획처럼 실행에 들어가기 전 의사결정을 검토하는
-용도였습니다. 세션 로그상 실행 이력이 없어 실사용 검증이 안 된 상태라
-내 설정에서는 뺐습니다.
+| [Business Panel](https://github.com/SuperClaude-Org/SuperClaude_Framework/blob/master/src/superclaude/modes/MODE_Business_Panel.md) | Christensen·Porter 등 9명의 경영 프레임워크로 전략 문서를 다각도로 분석 |
 
 ### MCP 서버 라우팅 규칙
 
@@ -189,6 +179,7 @@ Brainstorming", "브라우저 테스트 필요 → Playwright"), 대화 맥락�
 | [Deep Research](https://github.com/SuperClaude-Org/SuperClaude_Framework/blob/master/src/superclaude/modes/MODE_DeepResearch.md) | 여러 출처를 병렬 검색·신뢰도 채점해 근거 기반으로 종합 |
 | [Token Efficiency](https://github.com/SuperClaude-Org/SuperClaude_Framework/blob/master/src/superclaude/modes/MODE_Token_Efficiency.md) | 컨텍스트가 부족할 때 기호·축약어로 압축해 커뮤니케이션 |
 | [Orchestration](https://github.com/SuperClaude-Org/SuperClaude_Framework/blob/master/src/superclaude/modes/MODE_Orchestration.md) | 작업 유형에 따라 최적 도구/MCP 서버를 자동으로 선택 |
+| [Business Panel](https://github.com/SuperClaude-Org/SuperClaude_Framework/blob/master/src/superclaude/modes/MODE_Business_Panel.md) | 9명의 경영 프레임워크로 전략 문서·사업 아이디어를 다각도로 분석 (discussion/debate/socratic) |
 
 ### MCP 서버
 
