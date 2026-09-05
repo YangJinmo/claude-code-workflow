@@ -76,8 +76,14 @@ Claude Code를 매 세션 실제로 불러오는 설정 파일(`config/`, `Skill
 | [MODE_DeepResearch.md](config/MODE_DeepResearch.md) | Deep Research | 근거 기반, 출처 명시 리서치 |
 | [MODE_Token_Efficiency.md](config/MODE_Token_Efficiency.md) | Token Efficiency | 컨텍스트 압박 시 기호 기반 압축 커뮤니케이션 |
 
-Business Panel 모드는 제거했습니다 — 세션 로그상 실행 이력이 없어 실사용
-검증이 안 된 상태였습니다.
+**Business Panel** (config 파일은 제거, 설명만 남김) — Christensen, Porter,
+Drucker, Godin, Kim & Mauborgne, Collins, Taleb, Meadows, Doumont 9명의
+경영 프레임워크로 전략 문서·사업 아이디어를 다각도로 분석하는 멀티 페르소나
+모드였습니다. discussion(협력 분석)/debate(반박 검증)/socratic(질문 유도)
+3가지 방식을 지원했고, 코드 리뷰처럼 "다 만들고 나서" 쓰는 게 아니라
+전략 기획서나 시장 진입 계획처럼 실행에 들어가기 전 의사결정을 검토하는
+용도였습니다. 세션 로그상 실행 이력이 없어 실사용 검증이 안 된 상태였고,
+이 레포의 실제 설정 파일(`config/`)에도 다시 넣지 않았습니다.
 
 ### MCP 서버 라우팅 규칙
 
