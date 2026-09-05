@@ -1,41 +1,41 @@
 # Claude Code Workflow
 
-Claude Code를 기반으로 개인 개발 워크플로우를 자동화하기 위해 구성한
-프레임워크 통합, 커스텀 규칙, 멀티 에이전트 오케스트레이션 설정입니다.
+Claude Code 세션 로그를 근거로, 실제로 사용한 워크플로우만 정리했습니다.
+설정만 해두고 쓰지 않은 기능은 제외했습니다.
 
-## 구성 개요
+## 실증된 사용 사례
 
-### 1. Behavioral Framework 통합 (SuperClaude)
-- 8개 행동 모드(Brainstorming, Task Management, Orchestration,
-  Token Efficiency, Introspection, Deep Research 등)를 상황별로
-  자동 트리거되도록 구성
-- 작업 유형(디버깅/설계/UI/문서화 등)에 따라 최적 MCP 서버를
-  선택하는 라우팅 규칙 정의
+### 1. 구조화된 작업 관리 (Task 도구)
+**2026-07-22 · PartMoney (Swift iOS 앱)**
 
-### 2. MCP 서버 오케스트레이션
-| 서버 | 용도 |
-|---|---|
-| Sequential | 복잡한 다단계 추론, 아키텍처 분석 |
-| Context7 | 프레임워크 공식 문서 조회 |
-| Magic | UI 컴포넌트 생성 |
-| Playwright | 브라우저 E2E 테스트 |
-| Serena | 심볼 단위 코드 탐색, 세션 메모리 |
-| Morphllm | 대량 패턴 기반 코드 수정 |
-| Tavily | 실시간 웹 리서치 |
+`TaskCreate`/`TaskUpdate` 79회 호출. Clean Architecture 리팩터링을
+"Git 안전망 커밋 → Domain 계층 → Data 계층 → DI 컨테이너 →
+Presentation(MVVM) 전환" 순서로 태스크 단위 분해해서 진행.
 
-### 3. 멀티 에이전트 협업 규칙
-- 작업 실행(Task Execution) 에이전트와 사후 문서화(PM Agent)를
-  분리해 지식이 자동으로 축적되도록 설계
-- 실패 발생 시 즉시 근본 원인 분석 후 재작업하는 규칙 명문화
+### 2. 멀티 에이전트 병렬 코드 리뷰
+**2026-08-07 · PartMoney 외 1개 프로젝트**
 
-### 4. 커스텀 스킬
-- `sc:business-panel`: Porter, Christensen, Drucker 등 9인의
-  경영 프레임워크를 discussion/debate/socratic 모드로 시뮬레이션하는
-  멀티 전문가 분석 시스템
-- `sc:research`: 병렬 검색 → 신뢰도 스코어링 → 근거 기반 합성까지
-  이어지는 딥리서치 파이프라인
+`/code-review` high-effort 실행. 정확성/제거된 동작/교차 함수/재사용/
+단순화/효율/추상화 레벨/컨벤션 등 8개 앵글에 걸쳐 서브에이전트를
+병렬 디스패치하고, 검증 배치를 거쳐 결과를 취합하는 방식으로 진행
+(총 서브에이전트 15개 디스패치).
+
+### 3. 커스텀 스킬 제작 및 활용
+**2026-08-07 ~ 2026-08-30**
+
+- `skill-creator`로 유튜브 자막 추출 스크립트를 `tube-info` 스킬로 전환 (08-07)
+- `karpathy-guidelines` 스킬로 과설계 방지 체크 (Mockup-Umsun 프로젝트, 08-26)
+- `app-mockup` 스킬로 앱 스크린샷을 기기 목업 이미지로 합성 (Somvely 외, 08-28, 08-30)
+
+### 4. Playwright MCP 브라우저 자동화
+**2026-08-27**
+
+`browser_navigate`/`click`/`snapshot`/`evaluate` 등 25회 호출로
+프런트엔드 변경 사항을 실제 브라우저에서 검증.
 
 ## 왜 이렇게 구성했는가
 반복적인 컨텍스트 손실, 임시방편적 코드 수정, 불필요한 verbose 출력
-같은 문제를 겪은 뒤, 규칙/모드/에이전트 역할을 명시적으로 분리해
-일관되고 검증 가능한 결과를 내도록 설계했습니다.
+같은 문제를 겪은 뒤, 작업을 태스크 단위로 쪼개고 검증 가능한 방식으로
+진행하는 것을 우선했습니다. 위 항목들은 실제 세션 로그에 남은 사용
+이력을 기준으로 정리한 것이며, 설정만 해두고 실행 기록이 없는 기능
+(예: 일부 MCP 서버, 특정 리서치/분석 스킬)은 포함하지 않았습니다.
