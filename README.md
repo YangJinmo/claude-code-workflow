@@ -119,6 +119,32 @@ Playwright). **다만 이 중 실제 호출 이력이 확인된 것은 Playwrigh
 `~/.claude/skills/<name>/SKILL.md`, Command는 `~/.claude/commands/<name>.md`에
 넣습니다.
 
+## 구성은 됐지만 아직 사용 안 한 기능
+
+레포에 설정은 돼 있지만 세션 로그상 실행 이력이 없는 기능입니다. 뭘 더
+써볼 수 있는지 참고용으로 남겨둡니다.
+
+### Behavioral Modes
+
+| 모드 | 용도 |
+|---|---|
+| [Brainstorming](config/MODE_Brainstorming.md) | 모호한 요청에 질문을 던져 요구사항을 구체화 |
+| [Introspection](config/MODE_Introspection.md) | 에러나 복잡한 판단 이후 스스로의 추론 과정을 되짚어봄 |
+| [Deep Research](config/MODE_DeepResearch.md) | 여러 출처를 병렬 검색·신뢰도 채점해 근거 기반으로 종합 |
+| [Token Efficiency](config/MODE_Token_Efficiency.md) | 컨텍스트가 부족할 때 기호·축약어로 압축해 커뮤니케이션 |
+| [Orchestration](config/MODE_Orchestration.md) | 작업 유형에 따라 최적 도구/MCP 서버를 자동으로 선택 |
+
+### MCP 서버
+
+| 서버 | 용도 |
+|---|---|
+| [Context7](config/MCP_Context7.md) | 공식 라이브러리 문서를 버전에 맞게 조회 |
+| [Sequential](config/MCP_Sequential.md) | 복잡한 다단계 추론이 필요한 디버깅·아키텍처 분석 |
+| [Serena](config/MCP_Serena.md) | 심볼 단위 코드 탐색, 세션 간 메모리 유지 |
+| [Morphllm](config/MCP_Morphllm.md) | 여러 파일에 걸친 패턴 기반 대량 수정 |
+| [Magic](config/MCP_Magic.md) | 21st.dev 패턴 기반 UI 컴포넌트 생성 |
+| [Tavily](config/MCP_Tavily.md) | 실시간 웹 검색 |
+
 ## 왜 이렇게 구성했는가
 반복적인 컨텍스트 손실, 임시방편적 코드 수정, 불필요한 verbose 출력
 같은 문제를 겪은 뒤, 작업을 태스크 단위로 쪼개고 검증 가능한 방식으로
