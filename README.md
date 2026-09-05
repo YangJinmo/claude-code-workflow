@@ -1,8 +1,10 @@
 # Claude Code Workflow
 
-Claude Code를 매 세션 실제로 불러오는 설정 파일(`config/`, `Skills/`, `Commands/`)과,
-세션 로그로 검증한 실사용 사례를 함께 정리했습니다. 설정만 해두고 쓰지
-않은 기능(예: Business Panel 모드)은 뺐습니다.
+Claude Code를 매 세션 실제로 불러오는 설정과, 세션 로그로 검증한 실사용
+사례를 함께 정리했습니다. 프레임워크 원본 파일([SuperClaude Framework](https://github.com/SuperClaude-Org/SuperClaude_Framework))은
+이 레포에 복제해두지 않고 원본 링크로 대체했고, 직접 만든 `Skills/`,
+`Commands/`만 실제 파일로 들어 있습니다. 설정만 해두고 쓰지 않은 기능
+(예: Business Panel 모드)은 뺐습니다.
 
 ## 실증된 사용 사례
 
@@ -61,33 +63,36 @@ Claude Code를 매 세션 실제로 불러오는 설정 파일(`config/`, `Skill
 
 ## 구성
 
-`config/CLAUDE.md`는 Claude Code가 세션 시작 시 읽는 진입점 파일로, 이 레포의
-나머지 설정 파일을 전부 import합니다. [SuperClaude Framework](https://github.com/SuperClaude-Org/SuperClaude_Framework)
-위에 구성했으며, 실제로 매 세션 로드되는 설정이지 데모용이 아닙니다.
+`CLAUDE.md`는 Claude Code가 세션 시작 시 읽는 진입점 파일로, 아래 설정
+파일들을 전부 import합니다. 파일 자체는 [SuperClaude Framework](https://github.com/SuperClaude-Org/SuperClaude_Framework)
+원본을 그대로 쓰고 있어서 이 레포에 복제해두지 않았고, 링크는 전부
+원본 레포를 가리킵니다. 실제로 매 세션 로드되는 설정이지 데모용이
+아닙니다.
 
 ### Behavioral Modes
 
-| 파일 | 모드 | 용도 |
-|---|---|---|
-| [MODE_Brainstorming.md](config/MODE_Brainstorming.md) | Brainstorming | 모호한 요청에 대한 소크라테스식 질문 |
-| [MODE_Task_Management.md](config/MODE_Task_Management.md) | Task Management | 다단계 작업의 계층적 계획·메모리 관리 |
-| [MODE_Orchestration.md](config/MODE_Orchestration.md) | Orchestration | 작업별 최적 도구/MCP 서버 선택 |
-| [MODE_Introspection.md](config/MODE_Introspection.md) | Introspection | 에러·복잡한 판단 이후 메타인지적 자기 점검 |
-| [MODE_DeepResearch.md](config/MODE_DeepResearch.md) | Deep Research | 근거 기반, 출처 명시 리서치 |
-| [MODE_Token_Efficiency.md](config/MODE_Token_Efficiency.md) | Token Efficiency | 컨텍스트 압박 시 기호 기반 압축 커뮤니케이션 |
+| 모드 | 용도 |
+|---|---|
+| [Brainstorming](https://github.com/SuperClaude-Org/SuperClaude_Framework/blob/master/src/superclaude/modes/MODE_Brainstorming.md) | 모호한 요청에 대한 소크라테스식 질문 |
+| [Task Management](https://github.com/SuperClaude-Org/SuperClaude_Framework/blob/master/src/superclaude/modes/MODE_Task_Management.md) | 다단계 작업의 계층적 계획·메모리 관리 |
+| [Orchestration](https://github.com/SuperClaude-Org/SuperClaude_Framework/blob/master/src/superclaude/modes/MODE_Orchestration.md) | 작업별 최적 도구/MCP 서버 선택 |
+| [Introspection](https://github.com/SuperClaude-Org/SuperClaude_Framework/blob/master/src/superclaude/modes/MODE_Introspection.md) | 에러·복잡한 판단 이후 메타인지적 자기 점검 |
+| [Deep Research](https://github.com/SuperClaude-Org/SuperClaude_Framework/blob/master/src/superclaude/modes/MODE_DeepResearch.md) | 근거 기반, 출처 명시 리서치 |
+| [Token Efficiency](https://github.com/SuperClaude-Org/SuperClaude_Framework/blob/master/src/superclaude/modes/MODE_Token_Efficiency.md) | 컨텍스트 압박 시 기호 기반 압축 커뮤니케이션 |
 
-**Business Panel** (config 파일은 제거, 설명만 남김) — Christensen, Porter,
+**[Business Panel](https://github.com/SuperClaude-Org/SuperClaude_Framework/blob/master/src/superclaude/modes/MODE_Business_Panel.md)**
+(내 `CLAUDE.md` import 목록에서는 제거, 설명만 남김) — Christensen, Porter,
 Drucker, Godin, Kim & Mauborgne, Collins, Taleb, Meadows, Doumont 9명의
 경영 프레임워크로 전략 문서·사업 아이디어를 다각도로 분석하는 멀티 페르소나
 모드였습니다. discussion(협력 분석)/debate(반박 검증)/socratic(질문 유도)
 3가지 방식을 지원했고, 코드 리뷰처럼 "다 만들고 나서" 쓰는 게 아니라
 전략 기획서나 시장 진입 계획처럼 실행에 들어가기 전 의사결정을 검토하는
-용도였습니다. 세션 로그상 실행 이력이 없어 실사용 검증이 안 된 상태였고,
-이 레포의 실제 설정 파일(`config/`)에도 다시 넣지 않았습니다.
+용도였습니다. 세션 로그상 실행 이력이 없어 실사용 검증이 안 된 상태라
+내 설정에서는 뺐습니다.
 
 ### MCP 서버 라우팅 규칙
 
-`MCP_*.md` 파일들은 각 서버를 언제 선택해야 하는지 문서화한 규칙입니다
+아래 문서들은 각 서버를 언제 선택해야 하는지 정의한 규칙입니다
 (예: 공식 문서 조회는 Context7, 다단계 추론은 Sequential, 브라우저 테스트는
 Playwright). **다만 이 중 실제 호출 이력이 확인된 것은 Playwright뿐입니다**
 (위 "실증된 사용 사례" 4번). 나머지는 라우팅 규칙만 구성해뒀고 실사용 검증은
@@ -95,10 +100,10 @@ Playwright). **다만 이 중 실제 호출 이력이 확인된 것은 Playwrigh
 
 ### Core Rules & Principles
 
-- [`config/RULES.md`](config/RULES.md) — 세션 워크플로우, Git 안전 수칙, 스코프 규율
-- [`config/PRINCIPLES.md`](config/PRINCIPLES.md) — SOLID, DRY/KISS/YAGNI, 근거 기반 의사결정
-- [`config/FLAGS.md`](config/FLAGS.md) — 모드/깊이/MCP 선택을 수동으로 override하는 플래그
-- [`config/RESEARCH_CONFIG.md`](config/RESEARCH_CONFIG.md) — 딥리서치 워크플로우 기본값
+- [`RULES.md`](https://github.com/SuperClaude-Org/SuperClaude_Framework/blob/master/src/superclaude/core/RULES.md) — 세션 워크플로우, Git 안전 수칙, 스코프 규율
+- [`PRINCIPLES.md`](https://github.com/SuperClaude-Org/SuperClaude_Framework/blob/master/src/superclaude/core/PRINCIPLES.md) — SOLID, DRY/KISS/YAGNI, 근거 기반 의사결정
+- [`FLAGS.md`](https://github.com/SuperClaude-Org/SuperClaude_Framework/blob/master/src/superclaude/core/FLAGS.md) — 모드/깊이/MCP 선택을 수동으로 override하는 플래그
+- [`RESEARCH_CONFIG.md`](https://github.com/SuperClaude-Org/SuperClaude_Framework/blob/master/src/superclaude/core/RESEARCH_CONFIG.md) — 딥리서치 워크플로우 기본값
 
 ### Skills
 
@@ -120,8 +125,10 @@ Playwright). **다만 이 중 실제 호출 이력이 확인된 것은 Playwrigh
 
 ### 사용법
 
-`config/` 안의 파일들을 `~/.claude/`(전역) 또는 `.claude/`(프로젝트별)에
-넣고 자신의 `CLAUDE.md`에서 `@파일명.md`로 import하면 됩니다. Skill은
+프레임워크 설정 파일은 [SuperClaude Framework](https://github.com/SuperClaude-Org/SuperClaude_Framework)를
+설치하면 따라옵니다. `~/.claude/`(전역) 또는 `.claude/`(프로젝트별)에 두고
+자신의 `CLAUDE.md`에서 `@파일명.md`로 import하면 됩니다. 이 레포에서 실제로
+가져다 쓸 수 있는 건 `Skills/`, `Commands/`뿐입니다 — Skill은
 `~/.claude/skills/<name>/SKILL.md`, Command는 `~/.claude/commands/<name>.md`에
 넣습니다.
 
@@ -132,7 +139,7 @@ Playwright). **다만 이 중 실제 호출 이력이 확인된 것은 Playwrigh
 
 ### 1. 항상 자동으로 로드됨 — 별도 호출 불필요
 
-`config/CLAUDE.md`가 세션 시작 시 나머지 파일을 전부 `@import`하기 때문에,
+`CLAUDE.md`가 세션 시작 시 나머지 파일을 전부 `@import`하기 때문에,
 아래는 매 세션 시작할 때마다 자동으로 컨텍스트에 실립니다. 사용자가 명령어를
 치거나 파일을 지정할 필요가 없습니다.
 
@@ -177,22 +184,22 @@ Brainstorming", "브라우저 테스트 필요 → Playwright"), 대화 맥락�
 
 | 모드 | 용도 |
 |---|---|
-| [Brainstorming](config/MODE_Brainstorming.md) | 모호한 요청에 질문을 던져 요구사항을 구체화 |
-| [Introspection](config/MODE_Introspection.md) | 에러나 복잡한 판단 이후 스스로의 추론 과정을 되짚어봄 |
-| [Deep Research](config/MODE_DeepResearch.md) | 여러 출처를 병렬 검색·신뢰도 채점해 근거 기반으로 종합 |
-| [Token Efficiency](config/MODE_Token_Efficiency.md) | 컨텍스트가 부족할 때 기호·축약어로 압축해 커뮤니케이션 |
-| [Orchestration](config/MODE_Orchestration.md) | 작업 유형에 따라 최적 도구/MCP 서버를 자동으로 선택 |
+| [Brainstorming](https://github.com/SuperClaude-Org/SuperClaude_Framework/blob/master/src/superclaude/modes/MODE_Brainstorming.md) | 모호한 요청에 질문을 던져 요구사항을 구체화 |
+| [Introspection](https://github.com/SuperClaude-Org/SuperClaude_Framework/blob/master/src/superclaude/modes/MODE_Introspection.md) | 에러나 복잡한 판단 이후 스스로의 추론 과정을 되짚어봄 |
+| [Deep Research](https://github.com/SuperClaude-Org/SuperClaude_Framework/blob/master/src/superclaude/modes/MODE_DeepResearch.md) | 여러 출처를 병렬 검색·신뢰도 채점해 근거 기반으로 종합 |
+| [Token Efficiency](https://github.com/SuperClaude-Org/SuperClaude_Framework/blob/master/src/superclaude/modes/MODE_Token_Efficiency.md) | 컨텍스트가 부족할 때 기호·축약어로 압축해 커뮤니케이션 |
+| [Orchestration](https://github.com/SuperClaude-Org/SuperClaude_Framework/blob/master/src/superclaude/modes/MODE_Orchestration.md) | 작업 유형에 따라 최적 도구/MCP 서버를 자동으로 선택 |
 
 ### MCP 서버
 
 | 서버 | 용도 |
 |---|---|
-| [Context7](config/MCP_Context7.md) | 공식 라이브러리 문서를 버전에 맞게 조회 |
-| [Sequential](config/MCP_Sequential.md) | 복잡한 다단계 추론이 필요한 디버깅·아키텍처 분석 |
-| [Serena](config/MCP_Serena.md) | 심볼 단위 코드 탐색, 세션 간 메모리 유지 |
-| [Morphllm](config/MCP_Morphllm.md) | 여러 파일에 걸친 패턴 기반 대량 수정 |
-| [Magic](config/MCP_Magic.md) | 21st.dev 패턴 기반 UI 컴포넌트 생성 |
-| [Tavily](config/MCP_Tavily.md) | 실시간 웹 검색 |
+| [Context7](https://github.com/SuperClaude-Org/SuperClaude_Framework/blob/master/src/superclaude/mcp/MCP_Context7.md) | 공식 라이브러리 문서를 버전에 맞게 조회 |
+| [Sequential](https://github.com/SuperClaude-Org/SuperClaude_Framework/blob/master/src/superclaude/mcp/MCP_Sequential.md) | 복잡한 다단계 추론이 필요한 디버깅·아키텍처 분석 |
+| [Serena](https://github.com/SuperClaude-Org/SuperClaude_Framework/blob/master/src/superclaude/mcp/MCP_Serena.md) | 심볼 단위 코드 탐색, 세션 간 메모리 유지 |
+| [Morphllm](https://github.com/SuperClaude-Org/SuperClaude_Framework/blob/master/src/superclaude/mcp/MCP_Morphllm.md) | 여러 파일에 걸친 패턴 기반 대량 수정 |
+| [Magic](https://github.com/SuperClaude-Org/SuperClaude_Framework/blob/master/src/superclaude/mcp/MCP_Magic.md) | 21st.dev 패턴 기반 UI 컴포넌트 생성 |
+| [Tavily](https://github.com/SuperClaude-Org/SuperClaude_Framework/blob/master/src/superclaude/mcp/MCP_Tavily.md) | 실시간 웹 검색 |
 
 ## 왜 이렇게 구성했는가
 반복적인 컨텍스트 손실, 임시방편적 코드 수정, 불필요한 verbose 출력
